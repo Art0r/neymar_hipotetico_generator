@@ -5,7 +5,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 
 from classes import EmailLoginStep, PasswordLoginStep, UsernameLoginStep, LoginStep
-from config import EMAIL, PASSWORD, USERNAME
 
 
 class Login():
@@ -32,9 +31,7 @@ class Login():
         input = self.wait.until(ec.presence_of_element_located(
         (By.XPATH, f"//*[@class='{step.INPUT_CLASS}']")))
 
-        if step is EmailLoginStep: input.send_keys(EMAIL)
-        elif step is UsernameLoginStep: input.send_keys(USERNAME)
-        elif step is PasswordLoginStep: input.send_keys(PASSWORD)
+        input.send_keys(step.VALUE())
 
         foward_button = self.wait.until(ec.presence_of_element_located(
             (By.XPATH, f"//*[@class='{step.BUTTON_CLASS}']")))

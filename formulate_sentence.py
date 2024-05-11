@@ -1,10 +1,12 @@
+import os
 import google.generativeai as genai
-
-from config import GEMINI_KEY
 
 def formulate_sentence() -> str:
 
+    GEMINI_KEY = os.getenv("GEMINI_KEY")
+
     genai.configure(api_key=GEMINI_KEY)
+
     model = genai.GenerativeModel('gemini-pro')
     chat = model.start_chat(history=[])
 
@@ -22,6 +24,6 @@ def formulate_sentence() -> str:
         file.close()
 
     if len(response.text) > 240:
-        formulate_sentence()
+        return formulate_sentence()
 
     return response.text

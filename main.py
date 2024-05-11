@@ -1,9 +1,11 @@
+from dotenv import load_dotenv
 from formulate_sentence import formulate_sentence
 from login import Login
 from setup_selenium import setup_selenium
 from tweet import Tweet
 
 def main():
+    load_dotenv()
 
     generated_text = formulate_sentence()
 
