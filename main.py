@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
-from formulate_sentence import formulate_sentence
-from login import Login
-from setup_selenium import setup_selenium
-from tweet import Tweet
+from src.formulate_sentence import formulate_sentence
+from src.login import Login
+from src.setup_selenium import setup_selenium
+from src.tweet import Tweet
 
 def main():
     load_dotenv()
