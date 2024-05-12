@@ -1,3 +1,4 @@
+altgraph==0.17.4
 annotated-types==0.6.0
 attrs==23.2.0
 cachetools==5.3.3
@@ -24,6 +25,8 @@ pyasn1==0.6.0
 pyasn1_modules==0.4.0
 pydantic==2.7.1
 pydantic_core==2.18.2
+pyinstaller==6.6.0
+pyinstaller-hooks-contrib==2024.6
 pyparsing==3.1.2
 PySocks==1.7.1
 python-dotenv==1.0.1

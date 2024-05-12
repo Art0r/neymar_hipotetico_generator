@@ -9,8 +9,8 @@ def setup_selenium() -> WebDriverWait:
 
     # This option will make chrome to execute without appearing
     options.add_argument("--headless")
-    # options.add_argument("--no-sandbox")
-    # options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--verbose")
 
     website: str = "https://twitter.com/i/flow/login"
