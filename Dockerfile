@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 RUN pyinstaller --onefile main.py
 
-FROM ubuntu:latest
+FROM debian:latest
 
 WORKDIR /app/neymar_hipotetico
 
