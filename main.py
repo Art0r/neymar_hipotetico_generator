@@ -6,6 +6,7 @@ from src.login import Login
 from src.setup_selenium import setup_selenium
 from src.tweet import Tweet
 import time
+from src.utils import get_resource_path
 
 def main():
 
@@ -52,5 +53,5 @@ def main():
 
 
 if __name__ == '__main__':
-    load_dotenv()
+    load_dotenv(get_resource_path(".env"))
     main()

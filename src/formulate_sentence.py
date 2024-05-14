@@ -1,6 +1,8 @@
 import os
 import google.generativeai as genai
 
+from src.utils import get_resource_path
+
 def formulate_sentence() -> str:
 
     GEMINI_KEY = os.getenv("GEMINI_KEY")
@@ -10,7 +12,7 @@ def formulate_sentence() -> str:
     model = genai.GenerativeModel('gemini-pro')
     chat = model.start_chat(history=[])
 
-    with open('./prompt.txt', 'r') as file:
+    with open(get_resource_path('prompt.txt'), 'r') as file:
         texts = file.read().split(' -\n')
 
         formatted_texts = [text.replace('\n', '') for text in texts]
