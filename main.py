@@ -6,50 +6,46 @@ from src.login import Login
 from src.setup_selenium import setup_selenium
 from src.tweet import Tweet
 import time
-from src.utils import get_resource_path
+from src.utils import get_resource_path, write_log, retrieve_log_and_verify
+
+
+def timer() -> None:
+    time.sleep(5 * 60)
+
 
 def main():
 
-    target_schedule: dict[str, int] = {
-        "hour": 19,
-        "minute": 00
-    }
-
-    last_execution_date = None
+    logging.basicConfig(level=logging.DEBUG)
+    logger = logging.getLogger(__name__)
 
     while True:
 
-        logging.info("Starting Routine")
-        
         now = datetime.datetime.now()
-        target = datetime.datetime(
-            year=now.year,
-            day=now.day,
-            month=now.month,
-            second=now.second,
-            hour=target_schedule["hour"],
-            minute=target_schedule["minute"]
-        )
+        
+        if retrieve_log_and_verify(now):
+            logger.info(f"Skipping: {now.isoformat()}")
+            timer()
+            continue
+        
+        logger.info(f"Starting Routine: {now.isoformat()}")
 
-        if now.date() != last_execution_date and now >= target:
+        generated_text = formulate_sentence()
 
-            generated_text = formulate_sentence()
+        wait = setup_selenium()
 
-            wait = setup_selenium()
+        login = Login(wait=wait)
 
-            login = Login(wait=wait)
+        login.start()
 
-            login.start()
+        tweet = Tweet(wait=wait)
 
-            tweet = Tweet(wait=wait)
+        tweet.start(text=generated_text)
 
-            tweet.start(text=generated_text)
+        write_log()
 
-        last_execution_date = now.date()
+        logger.info(f"Finishing Routine: {now.isoformat()}")
 
-        logging.info("Finishing Routine")
-
-        time.sleep(5 * 60)
+        timer()
 
 
 if __name__ == '__main__':
