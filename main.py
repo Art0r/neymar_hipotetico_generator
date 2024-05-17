@@ -15,35 +15,48 @@ def timer() -> None:
 
 def main():
 
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
     while True:
 
         now = datetime.datetime.now()
+        now_isoformat = now.isoformat()
         
         if retrieve_log_and_verify(now):
-            logger.info(f"Skipping: {now.isoformat()}")
+            logger.info(f"Skipping: {now_isoformat}")
             timer()
             continue
         
-        logger.info(f"Starting Routine: {now.isoformat()}")
+        logger.info(f"Starting Routine: {now_isoformat}")
 
-        generated_text = formulate_sentence()
+        # adding error tolerance of 3
+        for i in range(3):
+            
+            try:
+                generated_text = formulate_sentence()
 
-        wait = setup_selenium()
+                wait = setup_selenium()
 
-        login = Login(wait=wait)
+                login = Login(wait=wait)
 
-        login.start()
+                login.start()
 
-        tweet = Tweet(wait=wait)
+                tweet = Tweet(wait=wait)
 
-        tweet.start(text=generated_text)
+                tweet.start(text=generated_text)
+                
+                # if complete without errors break the loop
+                break
+
+            except Exception as e:
+                logger.warning(f"Routine raised error: {now_isoformat}")
+                # if error is raised just skip
+                continue
 
         write_log()
 
-        logger.info(f"Finishing Routine: {now.isoformat()}")
+        logger.info(f"Finishing Routine: {now_isoformat}")
 
         timer()
 
