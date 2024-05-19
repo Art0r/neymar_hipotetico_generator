@@ -1,7 +1,7 @@
-import os
 import google.generativeai as genai
-
 from src.utils import get_resource_path
+import os
+
 
 def formulate_sentence() -> str:
 

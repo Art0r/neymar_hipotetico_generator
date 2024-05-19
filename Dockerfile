@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y binutils
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pyinstaller --onefile --add-data ".env:." --add-data "prompt.txt:." main.py
+RUN pyinstaller --onefile --add-data "prompt.txt:." main.py
 
 FROM debian:latest
 

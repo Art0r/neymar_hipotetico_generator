@@ -1,10 +1,8 @@
-import time
 from selenium.webdriver.support.ui import WebDriverWait
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
-
 from src.classes import EmailLoginStep, PasswordLoginStep, UsernameLoginStep, LoginStep
+import time
 
 
 class Login():
