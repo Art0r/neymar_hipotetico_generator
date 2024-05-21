@@ -25,7 +25,6 @@ RUN apt-get update && apt-get install -y google-chrome-stable
 
 COPY --from=builder /app/neymar_hipotetico/dist/main .
 COPY --from=builder /app/neymar_hipotetico/prompt.txt .
-COPY --from=builder /app/neymar_hipotetico/.env .
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1

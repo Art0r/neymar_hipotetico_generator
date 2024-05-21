@@ -33,7 +33,7 @@ def main(logger: logging.Logger, now: datetime.date):
             break
 
         except Exception as e:
-            logger.warning(f"Routine raised error: {now.isoformat()}")
+            logger.warning(f"Routine raised error: {now.isoformat()} | {e.args}")
             # if error is raised just skip
             continue
 

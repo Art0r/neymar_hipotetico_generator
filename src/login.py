@@ -2,6 +2,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from src.classes import EmailLoginStep, PasswordLoginStep, UsernameLoginStep, LoginStep
+from selenium.webdriver.common.keys import Keys
 import time
 
 
@@ -14,24 +15,21 @@ class Login():
     def start(self):
         self.run_step(EmailLoginStep)
 
-        time.sleep(2)
+        time.sleep(1)
 
         self.run_step(UsernameLoginStep)
 
-        time.sleep(2)
+        time.sleep(1)
 
         self.run_step(PasswordLoginStep)
 
-        time.sleep(2)
+        time.sleep(1)
 
 
     def run_step(self, step: LoginStep):
         input = self.wait.until(ec.presence_of_element_located(
-        (By.XPATH, f"//*[@class='{step.INPUT_CLASS}']")))
+        (By.XPATH, f"{step.INPUT_CLASS}")))
 
         input.send_keys(step.VALUE())
 
-        foward_button = self.wait.until(ec.presence_of_element_located(
-            (By.XPATH, f"//*[@class='{step.BUTTON_CLASS}']")))
-
-        foward_button.click()
+        input.send_keys(Keys.ENTER)
